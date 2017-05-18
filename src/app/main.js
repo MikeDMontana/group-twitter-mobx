@@ -7,8 +7,8 @@ import {Rectangle, Circle, Ellipse, Line, Polyline, CornerBox, Triangle} from 'r
 const Main = observer(({twitterStore}) => {
   return (
     <div>
-      Hello and: {twitterStore.getTweet.text}
-      <Circle r={twitterStore.rando} fill={{color:'red'}} stroke={{color:'#E65243'}} strokeWidth={0} />
+      <img src={twitterStore.getPic} />
+      <p>Hello and: {twitterStore.getTweet.text}</p>
 
     </div>
   )

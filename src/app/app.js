@@ -10,6 +10,7 @@ import {TwitterStore} from './TwitterStore';
 
 const twitterStore = new TwitterStore();
 
+
 ReactDOM.render(
   <Main twitterStore={twitterStore}/>,
   document.getElementById('app')

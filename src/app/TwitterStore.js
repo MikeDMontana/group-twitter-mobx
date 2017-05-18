@@ -5,14 +5,14 @@ import {Rectangle, Circle, Ellipse, Line, Polyline, CornerBox, Triangle} from 'r
 
 export class TwitterStore {
     @observable tweet;
+    @observable profilePic;
     @observable randomNumTwo;
-    @observable randomColor;
 
   constructor() {
     this.tweet = "No tweets";
+    this.profilePic = "";
     this.stream();
     this.randomNumTwo = 0;
-    this.randomColor = 0;
   }
 
 
@@ -29,7 +29,7 @@ export class TwitterStore {
       get('stream').then((res) => {
         this.tweet = res.data;
         this.randomNumTwo = Math.random() * (500 - 10) + 10;
-        this.randomColor = Math.random() * (255 - 0) + 0;
+        this.profilePic = res.data.user.profile_image_url;
       })
     },
     1000
@@ -44,16 +44,11 @@ export class TwitterStore {
     return this.tweet;
   }
 
-@computed get getPic() {
-  retrun this.tweet.profilePic;
-}
-
-
+  @computed get getPic() {
+    return this.profilePic;
+  }
   @computed get rando() {
     return this.randomNumTwo;
   }
 
-  @computed get randoColor() {
-    return this.randomColor;
-  }
 }
