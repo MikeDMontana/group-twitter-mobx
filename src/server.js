@@ -6,10 +6,6 @@ import http from 'http';
 const app = express();
 
 var client = new Twitter({
-  consumer_key: 'YjW5RoIBgBmJ3SIZj150XRBr3',
-  consumer_secret: 'i1v71mTIEGBU0AIKmuqKtNawG54OVNGjKgsEnsdFNQar1f0Yt3',
-  access_token_key: '893672846-pzCDEHvYGThN2lnFQJjHB4kFZO1bhIVkOqp9n1Y6',
-  access_token_secret: 'ZcBR2OtEZuugQR8SY3LczI20iWvrY0nmGBZYq5dOyfVVM'
 });
 
 
