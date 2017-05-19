@@ -14247,7 +14247,7 @@ module.exports = __webpack_amd_options__;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(console) {
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -14256,7 +14256,7 @@ exports.TwitterStore = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _desc, _value, _class, _descriptor, _descriptor2, _descriptor3;
+var _desc, _value, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5;
 
 var _mobx = __webpack_require__(39);
 
@@ -14319,10 +14319,16 @@ var TwitterStore = exports.TwitterStore = (_class = function () {
 
     _initDefineProp(this, 'randomNumTwo', _descriptor3, this);
 
+    _initDefineProp(this, 'userLocation', _descriptor4, this);
+
+    _initDefineProp(this, 'userBackground', _descriptor5, this);
+
     this.tweet = "No tweets";
     this.profilePic = "";
     this.stream();
     this.randomNumTwo = 0;
+    this.userLocation = "";
+    this.userBackground = "";
   }
 
   _createClass(TwitterStore, [{
@@ -14343,6 +14349,13 @@ var TwitterStore = exports.TwitterStore = (_class = function () {
           _this.tweet = res.data;
           _this.randomNumTwo = Math.random() * (500 - 10) + 10;
           _this.profilePic = res.data.user.profile_image_url;
+          _this.userLocation = res.data.user.location;
+          if (res.data.user.profile_background_image_url == "") {
+            _this.userBackground = "https://cdn.pixabay.com/photo/2014/11/08/03/29/hot-air-balloon-521542_960_720.jpg";
+          } else {
+            _this.userBackground = res.data.user.profile_background_image_url;
+          }
+          console.log(_this.userBackground);
         });
       }, 1000);
     }
@@ -14362,9 +14375,14 @@ var TwitterStore = exports.TwitterStore = (_class = function () {
       return this.profilePic;
     }
   }, {
-    key: 'rando',
+    key: 'getLocation',
     get: function get() {
-      return this.randomNumTwo;
+      return this.userLocation;
+    }
+  }, {
+    key: 'getUserBackground',
+    get: function get() {
+      return this.userBackground;
     }
   }]);
 
@@ -14378,7 +14396,14 @@ var TwitterStore = exports.TwitterStore = (_class = function () {
 }), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, 'randomNumTwo', [_mobx.observable], {
   enumerable: true,
   initializer: null
-}), _applyDecoratedDescriptor(_class.prototype, 'stream', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'stream'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'getTweet', [_mobx.computed], Object.getOwnPropertyDescriptor(_class.prototype, 'getTweet'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'getPic', [_mobx.computed], Object.getOwnPropertyDescriptor(_class.prototype, 'getPic'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'rando', [_mobx.computed], Object.getOwnPropertyDescriptor(_class.prototype, 'rando'), _class.prototype)), _class);
+}), _descriptor4 = _applyDecoratedDescriptor(_class.prototype, 'userLocation', [_mobx.observable], {
+  enumerable: true,
+  initializer: null
+}), _descriptor5 = _applyDecoratedDescriptor(_class.prototype, 'userBackground', [_mobx.observable], {
+  enumerable: true,
+  initializer: null
+}), _applyDecoratedDescriptor(_class.prototype, 'stream', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'stream'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'getTweet', [_mobx.computed], Object.getOwnPropertyDescriptor(_class.prototype, 'getTweet'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'getPic', [_mobx.computed], Object.getOwnPropertyDescriptor(_class.prototype, 'getPic'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'getLocation', [_mobx.computed], Object.getOwnPropertyDescriptor(_class.prototype, 'getLocation'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'getUserBackground', [_mobx.computed], Object.getOwnPropertyDescriptor(_class.prototype, 'getUserBackground'), _class.prototype)), _class);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13)))
 
 /***/ }),
 /* 97 */
@@ -14406,13 +14431,31 @@ var Main = (0, _mobxReact.observer)(function (_ref) {
 
   return _react2.default.createElement(
     'div',
-    null,
+    { style: {
+        'filter': 'blur(50)',
+        'width': 500,
+        'fontSize': 30,
+        'padding': 20,
+        'fontFamily': 'HelveticaNeue-UltraLight',
+        'backgroundImage': 'url(' + twitterStore.getUserBackground + ')'
+      }
+    },
     _react2.default.createElement('img', { src: twitterStore.getPic }),
     _react2.default.createElement(
       'p',
       null,
       'Hello and: ',
       twitterStore.getTweet.text
+    ),
+    _react2.default.createElement(
+      'p',
+      null,
+      twitterStore.getLocation
+    ),
+    _react2.default.createElement(
+      'p',
+      null,
+      twitterStore.getUserBackground
     )
   );
 });
